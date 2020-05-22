@@ -3,19 +3,10 @@
 </template>
 
 <script>
-import firebase from '~/plugins/firebase'
+import checkUser from '@/middleware/checkUser'
 
 export default {
-  beforeCreate() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        console.log(user)
-      } else {
-        console.log('user not found')
-        location.href = '/'
-      }
-    })
-  }
+  middleware: 'checkUser'
 }
 </script>
 
