@@ -14,6 +14,8 @@
             <button @click.prevent="signUp" class="button">sign up</button>
             <span>or</span>
             <button @click.prevent="logIn" class="button">log in</button>
+            <br />
+            <button @click.prevent="logOut" class="button">log out</button>
           </div>
         </form>
 
@@ -35,12 +37,51 @@ export default {
       password: 'hogehoge'
     }
   },
+  mounted() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        console.log(user)
+      } else {
+        console.log('not logged in...')
+      }
+    })
+  },
   methods: {
     signUp() {
       console.log('sign up')
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(e => {
+          console.log(e)
+        })
     },
     logIn() {
       console.log('log in')
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    logOut() {
+      console.log('log out')
+      firebase
+        .auth()
+        .signOut()
+        .then(res => {
+          console.log(res)
+        })
+        .catch(e => {
+          console.log(e)
+        })
     }
   }
 }
