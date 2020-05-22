@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="flex-center">
     <div class="centered">
       <div>
         <h1 class="title">nuxt-firebase-auth</h1>
@@ -8,11 +8,12 @@
             <input v-model="email" type="email" placeholder="email" />
           </div>
           <div class="form-input">
-            <input type="password" placeholder="password" />
+            <input v-model="password" type="password" placeholder="password" />
           </div>
           <div class="buttons">
-            <button class="button">sign up</button>
-            <button class="button">log in</button>
+            <button @click.prevent="signUp" class="button">sign up</button>
+            <span>or</span>
+            <button @click.prevent="logIn" class="button">log in</button>
           </div>
         </form>
 
@@ -30,15 +31,23 @@ import firebase from '~/plugins/firebase'
 export default {
   data() {
     return {
-      email: '',
-      password: ''
+      email: 'test@test.com',
+      password: 'hogehoge'
+    }
+  },
+  methods: {
+    signUp() {
+      console.log('sign up')
+    },
+    logIn() {
+      console.log('log in')
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.container {
+.flex-center {
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -47,15 +56,17 @@ export default {
 }
 
 .centered {
-  background-color: wheat;
+  // background-color: wheat;
   width: 100%;
+  padding: 0 10px;
 }
 
 form {
   max-width: 450px;
   margin: 20px auto;
-  // max-width: 450px;
-  background-color: aquamarine;
+  padding: 24px 4px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
 .form-input {
   margin: 15px auto;
